@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-export function Card({ children }) {
+export function Card({ card }) {
     const [showing, show] = useState(false)
 
     function onClick() {
@@ -10,7 +10,7 @@ export function Card({ children }) {
 
     return (
         <button style={style} onClick={onClick}>
-            {showing ? children : '❔'}
+            {showing ? card.icon : '❔'}
         </button>
     )
 }

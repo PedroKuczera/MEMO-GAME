@@ -1,14 +1,31 @@
-import React from "react"
+import React, { useState } from "react"
 import { Card } from "./Card"
 
 const icons = [
-    '🎶', '👍', '😎', '🤩',
+    '😑', '👍', '😎', '🤩',
     '😖', '😈', '🤓', '🫣'
 ]
+
+function getCards() {
+    return [...icons, ...icons]
+        .sort(() => Math.random() - 0.5)
+        .map((icon, index) => ({
+            index,
+            icon,
+            showing: false,
+            selected: false,
+            matched: false
+        }))
+
+}
+
 export function Board() {
+    const [ cards, setCards ] = useState(getCards)
+    
     return (
         <div style={style}>
-            {[...icons, ...icons].map((icon, index) => (<Card key={index}>{icon}</Card>))}
+            {cards.map((card, index) => (
+                <Card key={index} card={card} />))}
         </div>
     )
 }
