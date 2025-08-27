@@ -20,7 +20,7 @@ function getCards() {
 }
 
 export function Board() {
-    const [ cards, setCards ] = useState(getCards)
+    const [ cards, setCards ] = useState(getCards())
 
     function onClick(card) {
         const cardIndex = cards.findIndex(c => c.index == card.index)
@@ -30,6 +30,7 @@ export function Board() {
 
     return (
         <div style={style}>
+            <button style={styleResetButton} onClick={() => setCards(getCards())}>Recomeçar</button>
             {cards.map((card, index) => (
                 <Card key={index} card={card} onClick={onClick} />))}
         </div>
@@ -44,4 +45,13 @@ const style = {
     gridTemplateRows: 'repeat(4, 1fr)',
     gap: '1em',
     padding: '1em'
+}
+
+const styleResetButton = {
+    position: 'absolute',
+    right: '1em',
+    top: '1em',
+    padding: '1em',
+    borderRadius: '8px',
+    cursor: 'pointer'
 }
