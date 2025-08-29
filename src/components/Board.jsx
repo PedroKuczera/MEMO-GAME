@@ -1,12 +1,24 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { Card } from "./Card"
 
 const icons = [
-    '😑', '👍', '😎', '🤩',
-    '😖', '😈', '🤓', '🫣'
-]
+  '😀', '😁', '😂', '🤣', '😃', '😄', '😅', '😆', '😉', '😊',
+  '😋', '😎', '😍', '😘', '🥰', '😗', '😙', '😚', '🙂', '🤗',
+  '🤩', '🤔', '🤨', '😐', '😑', '😶', '🙄', '😏', '😣', '😥',
+  '😮', '🤐', '😯', '😪', '😫', '🥱', '😴', '😌', '😛', '😜',
+  '🤪', '😝', '🤤', '😒', '😓', '😔', '😕', '🙃', '🫠', '🤑',
+  '😲', '☹️', '🙁', '😖', '😞', '😟', '😤', '😢', '😭', '😦',
+  '😧', '😨', '😩', '🤯', '😬', '😮‍💨', '😰', '😱', '🥵', '🥶',
+  '😳', '🤪', '😵', '😵‍💫', '😠', '😡', '🤬', '😷', '🤒', '🤕',
+  '🤢', '🤮', '🤧', '😇', '🥳', '🥸', '🥺', '🤠', '🤡', '🤥',
+  '😈', '👿', '👹', '👺', '💀', '☠️', '👻', '👽', '👾', '🤖'
+];
 
-function getCards() {
+
+
+
+export function Board() {
+    const getCards = useCallback(() => {
     return [...icons, ...icons]
         .sort(() => Math.random() - 0.5)
         .map((icon, index) => ({
@@ -17,14 +29,13 @@ function getCards() {
             matched: false
         }))
 
-}
+})
 
-export function Board() {
     const [ cards, setCards ] = useState(getCards())
     const [ verifying, setVerifying ] = useState(false)
     const restartButton = useRef(null)
 
-    function onClick(card) {
+    const onClick = useCallback((card) => {
         if (verifying ||card.selected || card.matched) return
 
         const cardIndex = cards.findIndex(c => c.index == card.index)
@@ -37,7 +48,7 @@ export function Board() {
         }
 
         setCards([...cards])
-    }
+    })
 
     useEffect(() => {
         if (!verifying) return
