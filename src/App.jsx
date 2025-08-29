@@ -1,9 +1,21 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Board } from "./components/Board"
+import { ThemeContext, ThemeProvider } from "./contexts/ThemeContext"
+
 
 export function App() {
-    const [ themeDark, setThemeDark ] = useState(false)
     return (
+        <ThemeProvider>
+            <Content />
+        </ThemeProvider>
+    )
+}
+
+function Content() {
+    const { themeDark, setThemeDark } = useContext(ThemeContext)
+
+    return (
+        
         <div style={style(themeDark)}>
             <div style={{display: 'flex', alignItems: 'center', gap: '1em'}}>
                 <h1>Jogo da Memória</h1>
@@ -11,8 +23,8 @@ export function App() {
                     { themeDark ? '🌒' : '🌔' }
                 </a>
             </div>
-            <Board themeDark={themeDark} />
-        </div>
+            <Board />
+        </div>   
     )
 }
 
